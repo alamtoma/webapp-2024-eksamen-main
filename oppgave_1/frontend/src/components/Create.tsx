@@ -1,5 +1,10 @@
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { courseCreateSteps, categories } from "@/data/data";
+import { createCourse } from "@/utils/courseHandlers";
+import { isValid } from "@/utils/validation";
 
 export default function Create() {
     const [success, setSuccess] = useState(false);

@@ -1,4 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
+import { getCourse } from "@/utils/courseHandlers";
+import Lesson from "./Lesson";
+import { users } from "@/data/data";
 
 export default function Course() {
     const [content, setContent] = useState(null);

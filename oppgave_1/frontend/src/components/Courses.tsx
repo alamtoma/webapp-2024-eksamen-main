@@ -1,4 +1,7 @@
+"use client";
+
 import { useState } from "react";
+import { courses, categories } from "@/data/data";
 
 export default function Courses() {
     const [value, setValue] = useState("");

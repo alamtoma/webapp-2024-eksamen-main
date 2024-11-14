@@ -1,4 +1,7 @@
+"use client";
+
 import { useState, useEffect } from "react";
+import { createComment, getComments } from "@/utils/commentHandlers";
 
 export default function Lesson() {
     const [success, setSuccess] = useState(false);
