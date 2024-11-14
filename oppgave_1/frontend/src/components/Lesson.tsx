@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { createComment, getComments } from "@/utils/commentHandlers";
+import { getCourse } from "@/utils/courseHandlers";
+import { getLesson } from "@/utils/lessonHandlers";
 
 export default function Lesson() {
     const [success, setSuccess] = useState(false);
