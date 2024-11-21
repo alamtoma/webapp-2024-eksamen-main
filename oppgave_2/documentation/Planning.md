@@ -1,11 +1,11 @@
 
-# 2. Skal dokumentere hvilke api-endepunkter (ressurser) som skal brukesSkal til hvert api-endepunkt dokumentere hvilke verb som er tilgjengelig. </br> 
-# 3.Hva slags forespørsler skal de håndtere. Skal til hvert api-endepunkt dokumentere responsen og statuskoden for de ulike verbene.</br>
-# 4. Hva slags data skal returneres når det går riktig / feil.Skal dokumentere hvilke sider (urler) som skal benytte de ulike APIene og </br>
-# 5. grovt hva som kan gjøres på den enkelte siden. Hvilke sider i "app" skal 
+ 2. Skal dokumentere hvilke api-endepunkter (ressurser) som skal brukesSkal til hvert api-endepunkt dokumentere hvilke verb som er tilgjengelig. </br> 
+3.Hva slags forespørsler skal de håndtere. Skal til hvert api-endepunkt dokumentere responsen og statuskoden for de ulike verbene.</br>
+ 4. Hva slags data skal returneres når det går riktig / feil.Skal dokumentere hvilke sider (urler) som skal benytte de ulike APIene og </br>
+ 5. grovt hva som kan gjøres på den enkelte siden. Hvilke sider i "app" skal 
 opprettes og grovt hva som kan gjøres på de ulike sidene. </br>
 
-*** login & registering***</br>
+# login & registering</br>
 
 +-------------------+           +--------------------+           +--------------------+</br>
 | /register         | POST ---->| /api/register      |           | Opprett ny bruker   |</br>
@@ -25,7 +25,7 @@ opprettes og grovt hva som kan gjøres på de ulike sidene. </br>
 | Logg ut           | POST ---->| /api/logout        |</br>
 +-------------------+           +--------------------+</br>
 
-*** Verb og	Statuskode	Beskrivelse ***</br>
+# Verb og Statuskode Beskrivelse </br>
 -> api/login	</br>
 -> ["POST"] :200 OK, Vellykket innlogging.</br>
 401 Unauthorized	Ugyldig e-post eller passord.</br>
@@ -35,7 +35,7 @@ opprettes og grovt hva som kan gjøres på de ulike sidene. </br>
 -> ["POST"] POST:201 Created, Ny bruker registrert. 400 Bad Request. Feil i forespørselen (f.eks. ugyldig data).
 409 Conflict E-post allerede registrert.
 
-*** opprett arrangemang fra bruker *** </br>
+# opprett arrangemang fra bruker </br>
 
 +-------------------+           +--------------------+           +--------------------+ </br>
 | /create-event     | POST ---->| /api/events        |           | Opprett nytt arrangement |</br>
@@ -54,7 +54,7 @@ opprettes og grovt hva som kan gjøres på de ulike sidene. </br>
 +-------------------+           +--------------------+</br>
 | /view-participants| GET ---->| /api/events/{id}/participants |</br>
 +-------------------+           +--------------------+</br>
-*** Verb og	Statuskode	Beskrivelse ***</br>
+# Verb og	Statuskode	Beskrivelse </br>
 -> api/events, ["POST"]	201 Created	Arrangementet ble opprettet:kommer</br>
 json</br>
 {</br>
@@ -89,7 +89,7 @@ json</br>
 }</br>
 
 
-*** Opprett arrangement fra admin side*** </br>
+# Opprett arrangement fra admin side </br>
 1. Opprett Arrangement:</br>
 +------------------------+            +---------------------------+</br>
 | Velg mal eller scratch | POST ---->| POST /api/events          |</br>
@@ -157,7 +157,7 @@ json</br>
 |                       |           | Respons: { "error": "Participant not found" } |</br>
 +------------------------+</br>
 Beskerivelse fra Flyrt Chart:</br>
-***Opprett Arrangement***</br>
+# Opprett Arrangement </br>
 ->Brukeren velger en mal eller starter fra scratch.</br>
 ->Data sendes til POST /api/events.</br>
 Statuskoder:</br>
@@ -197,7 +197,7 @@ Slett Deltaker:</br>
 *** 6. Skal dokumentere hvordan filtreringen skal foregå og løses i frontend og </br>
 Backend håndterer filtreringslogikken og returnerer data i JSON-format.</br>
 Frontend gir et brukervennlig grensesnitt for å sende filtre og vise resultater.</br>
-*** 7. Skal dokumentere datamodellen og bakgrunnen for denne modellen*** </br></br>
+# 7. Skal dokumentere datamodellen og bakgrunnen for denne modellen </br>
 Documentere data modell: </br>
 Kolonner: ID, name, type og event_date. Designet den data gir oss mulighet til rask og fleksible filtering.</br>
 Filtreringskriterier:</br>
@@ -207,7 +207,7 @@ Type -> Lar brukere finne arrangementer av en bestemt type.</br>
 
 Gir brukerne en rask og fleksibel måte å søke og filtrere relevante arrangementer på.</br>
 
- ***8. Skal dokumentere hvordan løse det å opprette / gjenbruke en mal ? *** </br></br>
+ # 8. Skal dokumentere hvordan løse det å opprette / gjenbruke en mal ? </br>
 
  -> Opprettelse av Mal:Administrator fyller ut et skjema med verdier som arrangementstype, maks antall deltakere, pris, og lokasjon.</br>
 -> Dataene lagres i en tabell dedikert til maler i databasen.For Eksempel:</br>
@@ -223,7 +223,7 @@ Eksempel:</br>
         ->Administrator velger malen "Standard Seminar Template".</br>
         ->Skjemaet fylles automatisk med verdier fra malen, som type = "Seminar", maks deltakere = 50, og pris = 500 NOK.</br>
 Administrator kan endre eller supplere verdiene fra malen for å tilpasse det spesifikke arrangementet.Dette gir fleksibilitet for spesielle krav, samtidig som malen forenkler opprettelsesprosessen.</br>
- ***9. dokumentere databasemodellen og nødvendige relasjoner***</br>
+ # 9. dokumentere databasemodellen og nødvendige relasjoner</br>
  +------------------+           +------------------+</br>
 | Templates       PK|           | Events          PK|</br>
 |------------------|           |------------------|</br>
