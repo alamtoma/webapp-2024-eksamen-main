@@ -1,21 +1,13 @@
-import { Hono } from "hono";
-import { cors } from "hono/cors";
+import express from 'express';
+import { exampleController } from './features/example/exampleController';
 
-const app = new Hono();
+const app = express();
 
-app.use("/*", cors());
+// Middleware
+app.use(express.json());
 
-app.onError((err, c) => {
-  console.error(err);
+// Routes
+app.get('/api/examples', exampleController.getExample);
+app.post('/api/examples', exampleController.addExample);
 
-  return c.json(
-    {
-      error: {
-        message: err.message,
-      },
-    },
-    { status: 500 }
-  );
-});
-
-export default app;
+export { app };

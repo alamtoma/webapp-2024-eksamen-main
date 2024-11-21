@@ -1,11 +1,10 @@
-import app from "./app";
-import { port } from "./config";
+import { app } from './app';
+import { config } from './config/config';
 
-import { serve } from "@hono/node-server";
+const startServer = async () => {
+  app.listen(config.port, () => {
+    console.log(`Server is running on http://localhost:${config.port}`);
+  });
+};
 
-console.log(`Server is running on port ${port}`);
-
-serve({
-  fetch: app.fetch,
-  port,
-});
+startServer();
