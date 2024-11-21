@@ -1,24 +1,24 @@
 
-# Svarte oppgave 2, 3, 4, 5 var avsnitt. #
+# Svarte oppgave 2, 3, 4, 5 var avsnitt. #</br>
 *** login & registering***</br>
 
-+-------------------+           +--------------------+           +--------------------+
-| /register         | POST ---->| /api/register      |           | Opprett ny bruker   |
-|                   |           |                    |           | Respons: 201 / 400  |
-+-------------------+           +--------------------+           +--------------------+
++-------------------+           +--------------------+           +--------------------+</br>
+| /register         | POST ---->| /api/register      |           | Opprett ny bruker   |</br>
+|                   |           |                    |           | Respons: 201 / 400  |</br>
++-------------------+           +--------------------+         +--------------------+</br>
           ↓                              ↓                               ↓
-  Ved registrering           Naviger til /login          Gå til innlogging side
+  Ved registrering           Naviger til /login          Gå til innlogging side</br>
           ↓                              ↓                               ↓
-+-------------------+           +--------------------+           +--------------------+
-| /login            | POST ---->| /api/login         |           | Logg inn bruker     |
-|                   |           |                    |           | Respons: 200 / 401  |
-+-------------------+           +--------------------+           +--------------------+
-          ↓                              ↓                               ↓
-  Bruker logger inn        Naviger til hovedside          Få tilgang til funksjoner
-          ↓                              ↓                               ↓
-+-------------------+           +--------------------+
-| Logg ut           | POST ---->| /api/logout        |
-+-------------------+           +--------------------+
++-------------------+           +--------------------+           +--------------------+</br>
+| /login            |  POST ---->| /api/login         |           | Logg inn bruker     | </br>
+|                   |          |                    |           | Respons: 200 / 401  | </br>
++-------------------+          +--------------------+           +--------------------+ </br>
+          ↓                              ↓                              ↓</br>
+  Bruker logger inn        Naviger til hovedside         Få tilgang til funksjoner</br>
+          ↓                             ↓  </br>                             ↓</br>
++-------------------+          +--------------------+</br>
+| Logg ut           | POST ---->| /api/logout        |</br>
++-------------------+           +--------------------+</br>
 
 *** Verb og	Statuskode	Beskrivelse ***
 -> api/login	POST:200 OK, Vellykket innlogging.
