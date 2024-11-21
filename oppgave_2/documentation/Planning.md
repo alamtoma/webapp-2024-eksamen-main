@@ -1,5 +1,10 @@
 
-# Svarte oppgave 2, 3, 4, 5 var avsnitt. #</br>
+# 2. Skal dokumentere hvilke api-endepunkter (ressurser) som skal brukesSkal til hvert api-endepunkt dokumentere hvilke verb som er tilgjengelig. </br> 
+# 3.Hva slags forespørsler skal de håndtere. Skal til hvert api-endepunkt dokumentere responsen og statuskoden for de ulike verbene.</br>
+# 4. Hva slags data skal returneres når det går riktig / feil.Skal dokumentere hvilke sider (urler) som skal benytte de ulike APIene og </br>
+# 5. grovt hva som kan gjøres på den enkelte siden. Hvilke sider i "app" skal 
+opprettes og grovt hva som kan gjøres på de ulike sidene. </br>
+
 *** login & registering***</br>
 
 +-------------------+           +--------------------+           +--------------------+</br>
