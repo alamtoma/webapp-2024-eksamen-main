@@ -1,15 +1,13 @@
-import SignUp from "@/components/SignUp";
-import Footer from "@/components/Footer";
+import Login from "./login/page";
 
 export default function Home() {
   return (
     <main className="h-full">
-      <Navbar />
-      <SignUp />
-      <Footer />
+      <Login />
     </main>
   );
 }
 
 import React from "react";
-import Navbar from "@/components/Navbar";
+
+
