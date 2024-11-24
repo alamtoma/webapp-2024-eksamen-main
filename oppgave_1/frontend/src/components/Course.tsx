@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { getCourse } from "@/utils/courseHandlers";
 import Lesson from "./Lesson";
 import { users } from "@/data/data";
@@ -8,8 +9,7 @@ import { users } from "@/data/data";
 export default function Course() {
     const [content, setContent] = useState(null);
   
-    const courseSlug = "javascript-101";
-    const lessonSlug = "variabler";
+    const { courseSlug, lessonSlug } = useParams();
   
     useEffect(() => {
       const getContent = async () => {

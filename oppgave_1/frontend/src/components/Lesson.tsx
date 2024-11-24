@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createComment, getComments } from "@/utils/commentHandlers";
 import { getCourse } from "@/utils/courseHandlers";
 import { getLesson } from "@/utils/lessonHandlers";
+import { useParams } from "next/navigation";
 
 export default function Lesson() {
     const [success, setSuccess] = useState(false);
@@ -13,9 +14,9 @@ export default function Lesson() {
     const [name, setName] = useState("");
     const [lesson, setLesson] = useState(null);
     const [course, setCourse] = useState(null);
-    const courseSlug = "javascript-101";
-    const lessonSlug = "variabler";
-  
+    
+    const { courseSlug, lessonSlug } = useParams();
+
     const handleComment = (event) => {
       setComment(event.target.value);
     };
