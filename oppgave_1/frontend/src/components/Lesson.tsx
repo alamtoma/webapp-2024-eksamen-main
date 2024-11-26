@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 interface Comment {
   id: string | number;
   createdBy: {
-    id: number;
+    id: string;
     name: string;
   };
   comment: string;

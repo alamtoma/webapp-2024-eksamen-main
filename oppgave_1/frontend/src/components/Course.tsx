@@ -6,8 +6,27 @@ import { getCourse } from "@/utils/courseHandlers";
 import Lesson from "./Lesson";
 import { users } from "@/data/data";
 
+interface Lesson {
+  id: string | number;
+  slug: string;
+  title: string;
+}
+
+interface Course {
+  slug: string;
+  title: string;
+  description: string;
+  lessons: Lesson[];
+}
+
+interface User {
+  id: string | number;
+  name: string;
+}
+
+
 export default function Course() {
-    const [content, setContent] = useState(null);
+    const [content, setContent] = useState<Course | null>(null);
   
     const { courseSlug, lessonSlug } = useParams();
   
@@ -68,7 +87,7 @@ export default function Course() {
         >
           <h3 className="mb-4 text-base font-bold">Deltakere</h3>
           <ul data-testid="course_enrollments">
-            {users?.map((user) => (
+            {users?.map((user: User) => (
               <li className="mb-1" key={user.id}>
                 {user.name}
               </li>
