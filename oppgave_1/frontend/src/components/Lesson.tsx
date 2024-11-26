@@ -6,26 +6,50 @@ import { getCourse } from "@/utils/courseHandlers";
 import { getLesson } from "@/utils/lessonHandlers";
 import { useParams } from "next/navigation";
 
+interface Comment {
+  id: string | number;
+  createdBy: {
+    id: number;
+    name: string;
+  };
+  comment: string;
+  lesson: {
+    slug: string;
+  };
+}
+
+interface Lesson {
+  title: string;
+  preAmble: string;
+  text: Array<{ id: string; text: string }>;
+}
+
+interface Course {
+  slug: string;
+  title: string;
+  category: string;
+}
+
 export default function Lesson() {
     const [success, setSuccess] = useState(false);
     const [formError, setFormError] = useState(false);
-    const [lessonComments, setComments] = useState([]);
-    const [comment, setComment] = useState("");
-    const [name, setName] = useState("");
-    const [lesson, setLesson] = useState(null);
-    const [course, setCourse] = useState(null);
+    const [lessonComments, setComments] = useState<Comment[]>([]);
+    const [comment, setComment] = useState<string>("");
+    const [name, setName] = useState<string>("");
+    const [lesson, setLesson] = useState<Lesson | null>(null);
+    const [course, setCourse] = useState<Course | null>(null);
     
     const { courseSlug, lessonSlug } = useParams();
 
-    const handleComment = (event) => {
+    const handleComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setComment(event.target.value);
     };
   
-    const handleName = (event) => {
+    const handleName = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       setName(event.target.value);
     };
   
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
       setFormError(false);
       setSuccess(false);

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 export default function CreatePage() {
     return (
         <> 
-            <main className="h-full">
+            <main className="h-full mx-16">
                 <Navbar />
                 <Create />
                 <Footer />

@@ -6,6 +6,15 @@ import { courseCreateSteps, categories } from "@/data/data";
 import { createCourse } from "@/utils/courseHandlers";
 import { isValid } from "@/utils/validation";
 
+interface Lesson {
+  id: string;
+  title: string;
+  slug: string;
+  preAmble: string;
+  text: Array<{ id: string; text: string }>;
+  order: string;
+}
+
 export default function Create() {
     const [success, setSuccess] = useState(false);
     const [formError, setFormError] = useState(false);
@@ -18,7 +27,7 @@ export default function Create() {
       description: "",
       category: "",
     });
-    const [lessons, setLessons] = useState([]);
+    const [lessons, setLessons] = useState<Lesson[]>([]);
   
     const router = useRouter();
   
