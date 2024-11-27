@@ -11,15 +11,15 @@ opprettes og grovt hva som kan gjøres på de ulike sidene. </br>
 | /register         | POST ---->| /api/register      |           | Opprett ny bruker   |</br>
 |                   |           |                    |           | Respons: 201 / 400  |</br>
 +-------------------+           +--------------------+         +--------------------+</br>
--------↓ ---------             ---------↓----------                       ↓
-  Ved registrering           Naviger til /login          Gå til innlogging side</br>
-       ↓                                ↓                               ↓
+-------↓ ---------             ---------↓                                  ↓
+  Ved registrering               Naviger til /login                   Gå til innlogging side</br>
+       ↓                                ↓                                  ↓
 +-------------------+           +--------------------+           +--------------------+</br>
 | /login            |  POST ---->| /api/login         |           | Logg inn bruker     | </br>
 |                   |          |                    |           | Respons: 200 / 401  | </br>
 +-------------------+          +--------------------+           +--------------------+ </br>
-          ↓                              ↓                              ↓</br>
-  Bruker logger inn        Naviger til hovedside         Få tilgang til funksjoner</br>
+        ↓                                ↓                                   ↓</br>
+  Bruker logger inn              Naviger til hovedside            Få tilgang til funksjoner</br>
           ↓                             ↓  </br>                             ↓</br>
 +-------------------+          +--------------------+</br>
 | Logg ut           | POST ---->| /api/logout        |</br>
@@ -240,4 +240,6 @@ Relasjon mellom Templates -> Events:</br>
 Relasjonstype: Én-til-Mange, En mal kan brukes til å opprette flere arrangementer.</br>
 Primærnøkkel (PK): id i Templates.</br>
 Fremmednøkkel (FK): template_id i Events.</br>
+ 
 
+ # Brukte chatGpd til lage flyrt Chart

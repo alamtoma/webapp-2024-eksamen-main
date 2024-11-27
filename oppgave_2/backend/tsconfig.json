@@ -1,5 +1,14 @@
 {
   "files": [],
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
   "references": [
     {
       "path": "./tsconfig.node.json",
