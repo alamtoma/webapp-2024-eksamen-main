@@ -1,6 +1,6 @@
 {
 	"name": "server",
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
 		"setupDB": "ts-node --loader ts-node/esm setupDB.ts",
