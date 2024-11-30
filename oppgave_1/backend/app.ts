@@ -35,13 +35,34 @@ app.post('/courses', async (c) => {
 
 // Slett kurs (inkludert tilhørende leksjoner og kommentarer)
 app.delete('/courses/:id', async (c) => {
-  const { id } = c.req.param();
+  const { id } = c.req.param(); // Henter kurs-ID fra URL
+
   return new Promise((resolve) => {
-    db.run('DELETE FROM courses WHERE id = ?', [id], function (err) {
-      if (err) {
-        resolve(c.json({ error: err.message }, 500));
-      }
-      resolve(c.json({ message: 'Course deleted successfully' }));
+    db.serialize(() => {
+      // Slett leksjoner tilknyttet kurset
+      db.run('DELETE FROM lessons WHERE course_id = ?', [id], function (err) {
+        if (err) {
+          resolve(c.json({ error: err.message }, 500));
+          return;
+        }
+        
+        // Slett kommentarer tilknyttet kurset
+        db.run('DELETE FROM comments WHERE course_id = ?', [id], function (err) {
+          if (err) {
+            resolve(c.json({ error: err.message }, 500));
+            return;
+          }
+          
+          // Slett selve kurset
+          db.run('DELETE FROM courses WHERE id = ?', [id], function (err) {
+            if (err) {
+              resolve(c.json({ error: err.message }, 500));
+            } else {
+              resolve(c.json({ message: 'Course and related data deleted successfully' }));
+            }
+          });
+        });
+      });
     });
   });
 });
