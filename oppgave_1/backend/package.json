@@ -1,10 +1,10 @@
 {
 	"name": "server",
-	"type": "commonjs",
+	"type": "commonjs", // BRukt chatgpt til å undersøke feilmld tilknyttet denne
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
-		"setupDB": "ts-node --loader ts-node/esm setupDB.ts",
-		"start": "npx ts-node app.ts"
+		"setupDB": "ts-node --loader ts-node/esm setupDB.ts", // BRukt chatgpt til å undersøke feilmld tilknyttet denne
+		"start": "npx ts-node app.ts" // BRukt chatgpt til å undersøke feilmld tilknyttet denne
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.12.1",
@@ -27,3 +27,5 @@
 		"typescript": "^5.7.2"
 	}
 }
+
+

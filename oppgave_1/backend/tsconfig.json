@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ESnext",
-    "strict": true,
-    "esModuleInterop": true,
+    "target": "ES6", // BRukt chatgpt til å undersøke feilmld tilknyttet denne
+    "module": "ESnext", // BRukt chatgpt til å undersøke feilmld tilknyttet denne
+    "strict": true, // BRukt chatgpt til å undersøke feilmld tilknyttet denne
+    "esModuleInterop": true, // BRukt chatgpt til å undersøke feilmld tilknyttet denne
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",

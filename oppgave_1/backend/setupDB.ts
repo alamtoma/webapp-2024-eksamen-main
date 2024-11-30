@@ -30,3 +30,5 @@ db.serialize(() => {
 });
 
 db.close();
+
+// BRukt chatgpt til å undersøke masse feilmld tilknyttet denne

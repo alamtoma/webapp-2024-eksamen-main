@@ -7,3 +7,6 @@ db.serialize(function () {
     console.log("Database and tables created successfully!");
 });
 db.close();
+
+
+// BRukt chatgpt til å undersøke feilmld tilknyttet denne
