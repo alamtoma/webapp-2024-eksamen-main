@@ -1,81 +1,27 @@
-import { Hono } from 'hono';
-import { sqlite } from 'sqlite3';
+import { Hono } from "hono";
+import { json } from "hono/http";
 
+// Simulert database med kursdata
+const courses = [
+  { id: 1, title: "Kurs 1", description: "Beskrivelse 1", category: "Design", slug: "kurs-1" },
+  { id: 2, title: "Kurs 2", description: "Beskrivelse 2", category: "Utvikling", slug: "kurs-2" },
+  { id: 3, title: "Kurs 3", description: "Beskrivelse 3", category: "Design", slug: "kurs-3" },
+];
+
+// Opprett en Hono-applikasjon
 const app = new Hono();
 
-// Initialiserer SQLite-database
-const db = new sqlite.Database('./database.db', (err: any) => {
-  if (err) {
-    console.error('Error opening database:', err);
-  } else {
-    console.log('Database connected');
-  }
+// API-endepunkt for å hente alle kurs
+app.get("/courses", (c) => {
+  return json(courses); // Returner kursene som JSON
 });
 
-// Oppretter kurs og leksjoner-tabeller (om de ikke eksisterer)
-db.run(`
-  CREATE TABLE IF NOT EXISTS courses (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT,
-    category TEXT
-  )
-`);
-
-db.run(`
-  CREATE TABLE IF NOT EXISTS lessons (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    courseId INTEGER,
-    title TEXT,
-    content TEXT,
-    FOREIGN KEY(courseId) REFERENCES courses(id)
-  )
-`);
-
-// Definer API-ruter for kurs
-app.get('/courses', (c: { json: (arg0: any) => unknown; }) => {
-  return new Promise((resolve) => {
-    db.all("SELECT * FROM courses", (err: any, rows: any) => {
-      resolve(c.json(rows));
-    });
-  });
+// API-endepunkt for å hente alle kategorier
+app.get("/categories", (c) => {
+  // Finn unike kategorier fra kursene
+  const categories = [...new Set(courses.map((course) => course.category))];
+  return json(categories); // Returner kategoriene som JSON
 });
 
-// API for å opprette kurs
-app.post('/courses', async (c: { req: { json: () => PromiseLike<{ title: any; category: any; }> | { title: any; category: any; }; }; json: (arg0: { error?: string; success?: string; }, arg1: number | undefined) => unknown; }) => {
-  const { title, category } = await c.req.json();
-  return new Promise((resolve) => {
-    db.run("INSERT INTO courses (title, category) VALUES (?, ?)", [title, category], (err: any) => {
-      if (err) {
-        resolve(c.json({ error: 'Failed to add course' }, 500));
-      } else {
-        resolve(c.json({ success: 'Course added' }));
-      }
-    });
-  });
-});
-
-// Definer API-ruter for leksjoner
-app.get('/lessons/:courseId', (c: { req: { param: (arg0: string) => any; }; json: (arg0: any) => unknown; }) => {
-  const courseId = c.req.param('courseId');
-  return new Promise((resolve) => {
-    db.all("SELECT * FROM lessons WHERE courseId = ?", [courseId], (err: any, rows: any) => {
-      resolve(c.json(rows));
-    });
-  });
-});
-
-// API for å opprette leksjoner
-app.post('/lessons', async (c: { req: { json: () => PromiseLike<{ courseId: any; title: any; content: any; }> | { courseId: any; title: any; content: any; }; }; json: (arg0: { error?: string; success?: string; }, arg1: number | undefined) => unknown; }) => {
-  const { courseId, title, content } = await c.req.json();
-  return new Promise((resolve) => {
-    db.run("INSERT INTO lessons (courseId, title, content) VALUES (?, ?, ?)", [courseId, title, content], (err: any) => {
-      if (err) {
-        resolve(c.json({ error: 'Failed to add lesson' }, 500));
-      } else {
-        resolve(c.json({ success: 'Lesson added' }));
-      }
-    });
-  });
-});
-
-app.listen(4000);
+// Start serveren
+app.fire();

@@ -3,8 +3,8 @@
 	"type": "commonjs",
 	"scripts": {
 		"dev": "tsx watch src/index.ts",
-		"setupDB": "ts-node --loader ts-node/esm setupDB.ts", 
-		"start": "npx ts-node app.ts" 
+		"setupDB": "ts-node --loader ts-node/esm setupDB.ts",
+		"start": "npx ts-node app.ts"
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.12.1",
@@ -27,5 +27,3 @@
 		"typescript": "^5.7.2"
 	}
 }
-
-
