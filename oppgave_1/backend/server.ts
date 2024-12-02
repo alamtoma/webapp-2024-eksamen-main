@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { json } from "hono/http";
+import { json, Context } from "hono/http";
 
 // Simulert database med kursdata
 const courses = [
@@ -8,20 +8,19 @@ const courses = [
   { id: 3, title: "Kurs 3", description: "Beskrivelse 3", category: "Design", slug: "kurs-3" },
 ];
 
-// Opprett en Hono-applikasjon
+// Opprette en Hono-applikasjon
 const app = new Hono();
 
-// API-endepunkt for å hente alle kurs
-app.get("/courses", (c) => {
+// API-endepunkt for å hente kurs
+app.get("/courses", (c: Context) => {
   return json(courses); // Returner kursene som JSON
 });
 
-// API-endepunkt for å hente alle kategorier
-app.get("/categories", (c) => {
-  // Finn unike kategorier fra kursene
+// API-endepunkt for å hente kategorier
+app.get("/categories", (c: Context) => {
+  // Finn unike kategorier fra kurs
   const categories = [...new Set(courses.map((course) => course.category))];
   return json(categories); // Returner kategoriene som JSON
 });
 
-// Start serveren
 app.fire();
