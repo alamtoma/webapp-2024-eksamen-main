@@ -4,7 +4,7 @@ import sqlite3 from 'sqlite3';
 const db = new sqlite3.Database('lms.db');
 const app = new Hono();
 
-// Hente alle kurs
+// Hente alle kurss
 app.get('/courses', async (c) => {
   return new Promise((resolve) => {
     db.all('SELECT * FROM courses', (err, rows) => {
