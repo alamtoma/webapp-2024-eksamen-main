@@ -5,7 +5,9 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["@testing-library/jest-dom"],
+    "types": [
+      "@testing-library/jest-dom"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -21,14 +23,17 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/app/layout.tsx", "src/components/Navbar.tsx"  ],
+    "**/*.tsx",
+    "src/app/layout.tsx",
+    "src/components/Navbar.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]

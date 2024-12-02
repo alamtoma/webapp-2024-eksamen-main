@@ -1,19 +1,14 @@
 {
-  "files": [],
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "Node",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist"
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json",
-      "include": ["src/**/*"],
-      "exclude": ["node_modules"]
-    }
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

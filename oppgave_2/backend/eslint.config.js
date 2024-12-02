@@ -1,5 +1,5 @@
-import { resolve } from "node:path";
-import baseConfig from "./eslint.config.js";
+import baseConfig from "../eslint.config";
+const { resolve } = require("node:path");
 
 const project = resolve(process.cwd(), "tsconfig.node.json");
 

@@ -1,211 +1,183 @@
 'use client';
 
 import React, { useState } from 'react';
-import './page.css';
 
-export default function BookingPage() {
+type Event = {
+  id: number;
+  name: string;
+  type: string;
+  date: string;
+  description: string;
+  status: 'Pending' | 'Approved'; // Status for admin approval
+};
+
+export default function EventSubmission() {
+  const [events, setEvents] = useState<Event[]>([]);
   const [formData, setFormData] = useState({
-    title: '',
+    name: '',
     type: '',
-    maxParticipants: '',
     date: '',
-    price: '',
-    location: '',
-    isPrivate: false,
-    allowWaitlist: false,
-    participants: [{ name: '', email: '' }],
+    description: '',
   });
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Handle participant changes
-  const handleParticipantChange = (index, field, value) => {
-    const updatedParticipants = formData.participants.map((participant, i) =>
-      i === index ? { ...participant, [field]: value } : participant
-    );
-    setFormData((prev) => ({ ...prev, participants: updatedParticipants }));
-  };
-
-  // Add a new participant
-  const addParticipant = () => {
-    setFormData((prev) => ({
-      ...prev,
-      participants: [...prev.participants, { name: '', email: '' }],
-    }));
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    alert('Arrangement opprettet!');
-    // Add logic to send formData to the backend API
+    const newEvent: Event = {
+      id: Date.now(),
+      name: formData.name,
+      type: formData.type,
+      date: formData.date,
+      description: formData.description,
+      status: 'Pending',
+    };
+    setEvents((prev) => [...prev, newEvent]);
+    setFormData({ name: '', type: '', date: '', description: '' });
+    alert('Event submitted for approval!');
+  };
+
+  const handleApprove = (id: number) => {
+    setEvents((prev) =>
+      prev.map((event) =>
+        event.id === id ? { ...event, status: 'Approved' } : event
+      )
+    );
+    alert('Event approved!');
   };
 
   return (
-    <div className="booking-page">
-      <header>
-        <h1>Opprett en ny Arrangement fra bruker</h1>
-      </header>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>Create Event from Scratch</h1>
 
-      <form className="form-container" onSubmit={handleSubmit}>
-        <section>
-          <label>Navn på arrangement:</label>
-          <select name="title" value={formData.title} onChange={handleChange}>
-            <option value="">Velg</option>
-            <option value="template1">Template 1</option>
-            <option value="template2">Template 2</option>
-          </select>
-
-          <label>Type arrangement:</label>
-          <select name="type" value={formData.type} onChange={handleChange}>
-            <option value="">Velg</option>
-            <option value="Seminar">Seminar</option>
-            <option value="Workshop">Workshop</option>
-          </select>
-
-          <label>Antall personer (maks 50):</label>
-          <input
-            type="number"
-            name="maxParticipants"
-            max="50"
-            value={formData.maxParticipants}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Event Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Pris per person (NOK):</label>
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Lokasjon:</label>
+      {/* Event Submission Form */}
+      <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+        <label>
+          Navn på arrangement:
           <input
             type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
             required
+            style={{ display: 'block', marginBottom: '10px', padding: '8px', width: '100%' }}
           />
-
-          <div className="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                name="isPrivate"
-                checked={formData.isPrivate}
-                onChange={handleChange}
-              />
-              Privat arrangement
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="allowWaitlist"
-                checked={formData.allowWaitlist}
-                onChange={handleChange}
-              />
-              Tillat venteliste
-            </label>
-          </div>
-
-          <button type="button" onClick={addParticipant}>
-            Add Participant
-          </button>
-
-          <button type="submit">Registration</button>
-        </section>
-
-        {formData.participants.map((participant, index) => (
-          <div key={index}>
-            <h3>Participant {index + 1}</h3>
-            <label>Navn:</label>
-            <input
-              type="text"
-              value={participant.name}
-              onChange={(e) =>
-                handleParticipantChange(index, 'name', e.target.value)
-              }
-              required
-            />
-            <label>Email:</label>
-            <input
-              type="email"
-              value={participant.email}
-              onChange={(e) =>
-                handleParticipantChange(index, 'email', e.target.value)
-              }
-              required
-            />
-          </div>
-        ))}
-
-        <section>
-          <h2>Create Event from Scratch</h2>
-          <label>Navn på arrangement:</label>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-
-          <label>Type arrangement:</label>
+        </label>
+        <label>
+          Type arrangement:
           <input
             type="text"
             name="type"
             value={formData.type}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
+            style={{ display: 'block', marginBottom: '10px', padding: '8px', width: '100%' }}
           />
-
-          <label>Event Date:</label>
+        </label>
+        <label>
+          Event Date:
           <input
             type="date"
             name="date"
             value={formData.date}
-            onChange={handleChange}
+            onChange={handleInputChange}
             required
+            style={{ display: 'block', marginBottom: '10px', padding: '8px', width: '100%' }}
           />
-
-          <label>Description:</label>
+        </label>
+        <label>
+          Description:
           <textarea
             name="description"
-            rows="4"
-            onChange={handleChange}
-            required
+            value={formData.description}
+            onChange={handleInputChange}
+            style={{ display: 'block', marginBottom: '10px', padding: '8px', width: '100%' }}
           ></textarea>
-
-          <button type="submit" className="create-button">
-            Create
-          </button>
-        </section>
+        </label>
+        <button
+          type="submit"
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          Submit Event
+        </button>
       </form>
 
-      <footer>
-        <p>&copy;2024 Arrangement med Booking</p>
-      </footer>
+      {/* Pending Events for Approval */}
+      <h2>Pending Events</h2>
+      {events.filter((event) => event.status === 'Pending').length === 0 ? (
+        <p>No pending events.</p>
+      ) : (
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {events
+            .filter((event) => event.status === 'Pending')
+            .map((event) => (
+              <li
+                key={event.id}
+                style={{
+                  border: '1px solid #ccc',
+                  borderRadius: '5px',
+                  padding: '10px',
+                  marginBottom: '10px',
+                  backgroundColor: '#f9f9f9',
+                }}
+              >
+                <p><strong>Name:</strong> {event.name}</p>
+                <p><strong>Type:</strong> {event.type}</p>
+                <p><strong>Date:</strong> {event.date}</p>
+                <p><strong>Description:</strong> {event.description}</p>
+                <button
+                  onClick={() => handleApprove(event.id)}
+                  style={{
+                    padding: '5px 10px',
+                    backgroundColor: '#28a745',
+                    color: '#fff',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Approve
+                </button>
+              </li>
+            ))}
+        </ul>
+      )}
+
+      {/* Approved Events */}
+      <h2>Approved Events</h2>
+      {events.filter((event) => event.status === 'Approved').length === 0 ? (
+        <p>No approved events.</p>
+      ) : (
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {events
+            .filter((event) => event.status === 'Approved')
+            .map((event) => (
+              <li
+                key={event.id}
+                style={{
+                  border: '1px solid #ccc',
+                  borderRadius: '5px',
+                  padding: '10px',
+                  marginBottom: '10px',
+                  backgroundColor: '#d4edda',
+                }}
+              >
+                <p><strong>Name:</strong> {event.name}</p>
+                <p><strong>Type:</strong> {event.type}</p>
+                <p><strong>Date:</strong> {event.date}</p>
+                <p><strong>Description:</strong> {event.description}</p>
+              </li>
+            ))}
+        </ul>
+      )}
     </div>
   );
 }
