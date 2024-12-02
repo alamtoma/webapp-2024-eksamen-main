@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-    "test:e2e": "playwright test --ui"
+		"test:e2e": "playwright test --ui"
 	},
 	"dependencies": {
 		"@tailwindcss/aspect-ratio": "^0.4.2",
