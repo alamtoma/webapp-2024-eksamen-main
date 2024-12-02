@@ -3,72 +3,35 @@ import sqlite3 from 'sqlite3';
 
 const db = new sqlite3.Database('lms.db');
 const app = new Hono();
+const courses = [db]
+const comments = [db]
 
-// Hente alle kurss
-app.get('/courses', async (c) => {
-  return new Promise((resolve) => {
-    db.all('SELECT * FROM courses', (err, rows) => {
-      if (err) {
-        resolve(c.json({ error: err.message }, 500));
-      }
-      resolve(c.json(rows));
-    });
-  });
+app.get('/api/courses', (c) => c.json(courses));
+
+app.get('/api/courses/:slug', (c) => {
+  const course = courses.find((course) => course.slug === c.req.param('slug'));
+  return course ? c.json(course) : c.json({ error: 'Course not found' }, 404);
 });
 
-// Nytt kurs
-app.post('/courses', async (c) => {
-  const { title, description, category } = await c.req.json();
-  return new Promise((resolve) => {
-    db.run(
-      'INSERT INTO courses (title, description, category) VALUES (?, ?, ?)',
-      [title, description, category],
-      function (err) {
-        if (err) {
-          resolve(c.json({ error: err.message }, 500));
-        }
-        resolve(c.json({ id: this.lastID }));
-      }
-    );
-  });
+app.get('/api/courses/:courseSlug/lessons/:lessonSlug', (c) => {
+  const { courseSlug, lessonSlug } = c.req.param();
+  const course = courses.find((course) => course.slug === courseSlug);
+  if (!course) return c.json({ error: 'Course not found' }, 404);
+  const lesson = course.lessons.find((lesson) => lesson.slug === lessonSlug);
+  return lesson ? c.json(lesson) : c.json({ error: 'Lesson not found' }, 404);
 });
 
-// Slett kurs (inkl leksjoner og kommentarer)
-app.delete('/courses/:id', async (c) => {
-  const { id } = c.req.param(); // Henter kurs-ID fra URL
+app.get('/api/comments', (c) => {
+  const lessonSlug = c.req.query('lessonSlug');
+  const lessonComments = comments.filter((comment) => comment.lesson.slug === lessonSlug);
+  return c.json(lessonComments);
+});
 
-  return new Promise((resolve) => {
-    db.serialize(() => {
-      // Slett leksj
-      db.run('DELETE FROM lessons WHERE course_id = ?', [id], function (err) {
-        if (err) {
-          resolve(c.json({ error: err.message }, 500));
-          return;
-        }
-        
-        // Slett komment
-        db.run('DELETE FROM comments WHERE course_id = ?', [id], function (err) {
-          if (err) {
-            resolve(c.json({ error: err.message }, 500));
-            return;
-          }
-          
-          // Slette selve kurset
-          db.run('DELETE FROM courses WHERE id = ?', [id], function (err) {
-            if (err) {
-              resolve(c.json({ error: err.message }, 500));
-            } else {
-              resolve(c.json({ message: 'Course and related data successfully deleted' }));
-            }
-          }); // DENNE BLA
-        });   // DENNE BLA
-      });     // DENNE BLA
-    });       // DENNE BLA
-  });         // DENNE BLA
-});           // DENNE BLA
-
-// Test-route for å sjekke om serveren fungerer
-app.get('/', (c) => c.text('LMS Backend is running!'));
+app.post('/api/comments', async (c) => {
+  const comment = await c.req.json();
+  comments.push(comment);
+  return c.json({ message: 'Comment added successfully' });
+});
 
 export default app;
 
