@@ -11,7 +11,7 @@ export default function Courses() {
   const fetchCourses = async () => {
     try {
       const coursesData = await ofetch("http://localhost:4000/courses");
-      const categoriesData = await ofetch("http://localhost:4000/categories"); // Hvis backend tilsier at porten er 4000
+      const categoriesData = await ofetch("http://localhost:4000/categories"); // Hvis backend støtter det
       setData(coursesData);
       setCategories(categoriesData);
       setLoading(false);
