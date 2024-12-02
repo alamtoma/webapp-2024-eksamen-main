@@ -3,8 +3,8 @@ import { sqlite } from 'sqlite3';
 
 const app = new Hono();
 
-// Initialiser SQLite-database
-const db = new sqlite.Database('./database.db', (err) => {
+// Initialiserer SQLite-database
+const db = new sqlite.Database('./database.db', (err: any) => {
   if (err) {
     console.error('Error opening database:', err);
   } else {
@@ -12,7 +12,7 @@ const db = new sqlite.Database('./database.db', (err) => {
   }
 });
 
-// Opprett kurs og leksjoner-tabeller (om de ikke eksisterer)
+// Oppretter kurs og leksjoner-tabeller (om de ikke eksisterer)
 db.run(`
   CREATE TABLE IF NOT EXISTS courses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,19 +32,19 @@ db.run(`
 `);
 
 // Definer API-ruter for kurs
-app.get('/courses', (c) => {
+app.get('/courses', (c: { json: (arg0: any) => unknown; }) => {
   return new Promise((resolve) => {
-    db.all("SELECT * FROM courses", (err, rows) => {
+    db.all("SELECT * FROM courses", (err: any, rows: any) => {
       resolve(c.json(rows));
     });
   });
 });
 
 // API for å opprette kurs
-app.post('/courses', async (c) => {
+app.post('/courses', async (c: { req: { json: () => PromiseLike<{ title: any; category: any; }> | { title: any; category: any; }; }; json: (arg0: { error?: string; success?: string; }, arg1: number | undefined) => unknown; }) => {
   const { title, category } = await c.req.json();
   return new Promise((resolve) => {
-    db.run("INSERT INTO courses (title, category) VALUES (?, ?)", [title, category], (err) => {
+    db.run("INSERT INTO courses (title, category) VALUES (?, ?)", [title, category], (err: any) => {
       if (err) {
         resolve(c.json({ error: 'Failed to add course' }, 500));
       } else {
@@ -55,20 +55,20 @@ app.post('/courses', async (c) => {
 });
 
 // Definer API-ruter for leksjoner
-app.get('/lessons/:courseId', (c) => {
+app.get('/lessons/:courseId', (c: { req: { param: (arg0: string) => any; }; json: (arg0: any) => unknown; }) => {
   const courseId = c.req.param('courseId');
   return new Promise((resolve) => {
-    db.all("SELECT * FROM lessons WHERE courseId = ?", [courseId], (err, rows) => {
+    db.all("SELECT * FROM lessons WHERE courseId = ?", [courseId], (err: any, rows: any) => {
       resolve(c.json(rows));
     });
   });
 });
 
 // API for å opprette leksjoner
-app.post('/lessons', async (c) => {
+app.post('/lessons', async (c: { req: { json: () => PromiseLike<{ courseId: any; title: any; content: any; }> | { courseId: any; title: any; content: any; }; }; json: (arg0: { error?: string; success?: string; }, arg1: number | undefined) => unknown; }) => {
   const { courseId, title, content } = await c.req.json();
   return new Promise((resolve) => {
-    db.run("INSERT INTO lessons (courseId, title, content) VALUES (?, ?, ?)", [courseId, title, content], (err) => {
+    db.run("INSERT INTO lessons (courseId, title, content) VALUES (?, ?, ?)", [courseId, title, content], (err: any) => {
       if (err) {
         resolve(c.json({ error: 'Failed to add lesson' }, 500));
       } else {
