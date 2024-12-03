@@ -12,7 +12,7 @@ export default function ButtonPanel() {
       {/* Button for Creating an Event */}
       <button
         className="btn primary"
-        onClick={() => router.push('/event')}
+        onClick={() => router.push('/admin/events')}
       >
         User event
       </button>

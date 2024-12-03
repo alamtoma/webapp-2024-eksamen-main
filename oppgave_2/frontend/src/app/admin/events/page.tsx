@@ -7,7 +7,7 @@ export default function Page() {
     <div style={{ padding: '20px' }}>
      
       <EventPanel/>
-      {/* <EventPanelWithFilters/> */}
+      {/* {<EventPanelWithFilters/> } */}
     </div>
   );
 }
