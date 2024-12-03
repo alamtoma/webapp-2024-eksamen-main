@@ -1,5 +1,5 @@
-import { Hono } from "hono";
-import { json, Context } from "hono/http";
+import { Context, Hono } from "hono";
+import { json } from "hono";
 
 // Simulert database med kursdata
 const courses = [
