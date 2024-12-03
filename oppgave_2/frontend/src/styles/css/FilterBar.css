@@ -1,0 +1,21 @@
+.filter-bar {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-bar h3 {
+    margin-bottom: 10px;
+  }
+  
+  .filter-bar label {
+    margin-right: 20px;
+  }
+  
+  .filter-bar select,
+  .filter-bar input {
+    margin-left: 10px;
+    padding: 5px;
+  }
+  

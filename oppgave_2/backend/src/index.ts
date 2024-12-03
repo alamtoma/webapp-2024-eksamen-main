@@ -1,11 +1,18 @@
-import app from "./app";
-import { port } from "./config";
+import express from "express";
+import cors from "cors";
+import events from "./API/events";
+import participants from "./API/participants";
 
-import { serve } from "@hono/node-server";
+const app = express();
+const port = 4004;
 
-console.log(`Server is running on port ${port}`);
+app.use(cors());
+app.use(express.json());
 
-serve({
-  fetch: app.fetch,
-  port,
+// Routes
+app.use("/api/events", events);
+app.use("/api/participants", participants);
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });

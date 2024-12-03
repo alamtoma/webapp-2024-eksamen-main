@@ -1,0 +1,42 @@
+/* Filter container */
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* Add space between filter items */
+  padding: 15px;
+  margin: 30px auto; /* Add margin above and below */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 80%; /* Limit the width to prevent stretching */
+}
+
+/* Each filter label */
+.filter label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
+  flex: 1; /* Allow labels to grow evenly */
+}
+
+/* Dropdown styling */
+.filter select {
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover and focus effect for dropdowns */
+.filter select:hover,
+.filter select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
